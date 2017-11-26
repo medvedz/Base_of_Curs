@@ -1,13 +1,10 @@
 import cv2 as cv
 import numpy as np
 import matplotlib as mp
+import Masks
 
 BYTE = 256
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 790a043706f7b19ed3d365c94ca815b275d5fcb9
 class Filters(object):
     def __init__(self, _pict):
         self.picture = _pict
