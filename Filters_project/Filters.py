@@ -37,3 +37,14 @@ class Filters(object):
                 x = equhist[self.picture[row, col]]
                 resimg[row, col] = eval(f_str)
         return resimg
+
+    def SpaceFilter_one(self,n):                            # mask size n x n
+       resimg=cv.imread(self.picture,cv.IMREAD_GRAYSCALE)   # read image in gray tones
+       a=Masks.Mask(n)                                      # create the mask  of ones
+       a.fill_one()                                         # a - единицы
+       st = resimg[int(n/2)][int(n/2)]                      # start pixel == mask center (in start moment of time)
+
+
+
+
+

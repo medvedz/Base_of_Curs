@@ -3,7 +3,11 @@ import numpy as np
 class Mask:
 
     def __init__(self,n):
-        self.heigth=n                          # min size 3x3
+        if (n<3):  n = 3                      # min size 3x3
+        else:
+            if (n%2==0): n-=1
+
+        self.heigth=n                         
         self.width=n
         self.mask=np.zeros((n,n))
         
