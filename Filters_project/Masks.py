@@ -3,24 +3,25 @@ import numpy as np
 class Mask:
 
     def __init__(self,n):
-        if (n<3):  n = 3                      # min size 3x3
+        n1=n
+        if (n<3):  n1 = 3                      # min size 3x3
         else:
-            if (n%2==0): n-=1
+            if (n%2==0): n1=n-1
 
-        self.heigth=n                         
-        self.width=n
-        self.mask=np.zeros((n,n))
+        self.heigth=n1
+        self.width=n1
+        self.mask=np.zeros((n1,n1))
         
     def SetMaskSize(self,n):
-
-        if (n<3): n=3                         #min size 3x3
+        n1=n
+        if (n<3): n1=3                         #min size 3x3
         else:
-            if (n%2==0): n-=1                 # если маска четного размера , то размер уменьшается на 1
+            if (n%2==0): n1=n-1                 # если маска четного размера , то размер уменьшается на 1
                                               # , при этом он больше или равен 3
 
-        self.heigth = n                       # size nxn
-        self.width = n
-        self.mask=np.zeros((n,n))
+        self.heigth = n1                       # size nxn
+        self.width = n1
+        self.mask=np.zeros((n1,n1))
 
 
     def print(self): print(self.mask)          # print mask   
@@ -48,18 +49,8 @@ class Mask:
 
 
     def add_k(self):                        # сумма коэф. маски
-        k=0
-
-        #if (self.mask[1][1]==self.mask[1][2]) :
-        #   k=self.heigth*self.width
-        #else:
-
-        for i in range(int((self.width-1)/2)):
-               for j in range(int((self.heigth+1)/2)):
-                   k+=self.mask[j][i]
-        k*=4
-        k+=self.mask[int((self.heigth)/2)][int((self.width)/2)]
-        return k
+        #k=self.mask.sum()
+        return self.mask.sum()
 
     def avg_k(self):                           # посчитать усредняющий коэф.
         return (float (1/self.add_k()))
