@@ -2,6 +2,7 @@ import cv2 as cv
 import numpy as np
 import matplotlib as mp
 import Masks
+import copy
 
 BYTE = 256
 
@@ -75,10 +76,13 @@ class Filters(object):
        return resimg.picture
     """
 
-    def SpaceFilter_one(self, n):
-        resimg = self
+    def SpaceFilter_line(self, n,flag):
+        resimg = copy.deepcopy(self)
         m = Masks.Mask(n)
-        m.fill_one()
+        if (flag==0):
+            m.fill_one()
+        else:
+            m.fill_avg()
         R = 0
 
         # для проверки
@@ -91,8 +95,8 @@ class Filters(object):
         start_h = int((m.heigth-1) / 2)
         start_w = int((m.width-1) / 2)
 
-        end_h = resimg.heigth - int((m.heigth - 1) / 2)
-        end_w = resimg.width - int((m.width - 1) / 2)
+        end_h = resimg.heigth - start_h
+        end_w = resimg.width - start_w
 
         for x in range(start_h, end_h):
             for y in range(start_w, end_w):
@@ -114,52 +118,40 @@ class Filters(object):
                 resimg.picture[x][y] = R/(m.add_k())
         return resimg.picture
 
-    def SpaceFilter_avg(self, n):
-        resimg = self
-        m = Masks.Mask(n)
-        m.fill_avg()
-        R = 0
-
-        # для проверки
-        """
-        m.print()
-        print(m.add_k())
-        print(m.avg_k())
-        """
-        start_h = int((m.heigth-1) / 2)
-        start_w = int((m.width-1) / 2)
-
-        end_h = resimg.heigth - int((m.heigth - 1) / 2)
-        end_w = resimg.width - int((m.width - 1) / 2)
-
-        for x in range(start_h, end_h):
-            for y in range(start_w, end_w):
-                R=0
-                for i in range(int((m.heigth+1) / 2)):
-                    for j in range(int((m.width+1) / 2)):
-                        R += ((resimg.picture[x + i][y + j])*(m.mask[start_h+i][start_w+j]))
-                        R += ((resimg.picture[x - i][y + j])*(m.mask[start_h-i][start_w+j]))
-                        R += ((resimg.picture[x + i][y - j])*(m.mask[start_h+i][start_w-j]))
-                        R += ((resimg.picture[x - i][y - j])*(m.mask[start_h-i][start_w-j]))
-                R -= (3 * (resimg.picture[x][y])*(m.mask[start_h][start_w]))
-                for i in range(1,int((m.heigth + 1) / 2)):
-                      R -= ((resimg.picture[x + i][y])*(m.mask[start_h+i][start_w]))
-                      R -= ((resimg.picture[x - i][y])*(m.mask[start_h-i][start_w]))
-                for j in range(1,int((m.width + 1) / 2)):
-                      R -= ((resimg.picture[x][y + j])*(m.mask[start_h][start_w+j]))
-                      R -= ((resimg.picture[x][y - j])*(m.mask[start_h][start_w-j]))
-                #R *=m.avg_k()
-                resimg.picture[x][y] = R/(m.add_k())
-        return resimg.picture
-
-    def SpaceFilter_median(self,n):
-        resimg=self
+    def SpaceFilter_notline(self,n,flag):
+        resimg=copy.deepcopy(self)
         m = Masks.Mask(n)
         a=list()
 
 
+        start_h = int((m.heigth - 1) / 2)
+        start_w = int((m.width - 1) / 2)
 
+        end_h = resimg.heigth - start_h
+        end_w = resimg.width - start_w
+
+        for x in range(start_h, end_h):
+            for y in range(start_w, end_w):
+                a.clear()
+                for i in range(1,int((m.heigth+1) / 2)):
+                    for j in range(1,int((m.width+1) / 2)):
+                        a.append(resimg.picture[x + i][y + j])
+                        a.append(resimg.picture[x - i][y + j])
+                        a.append(resimg.picture[x + i][y - j])
+                        a.append(resimg.picture[x - i][y - j])
+                a.append(resimg.picture[x][y])
+                for i in range(1,int((m.heigth + 1) / 2)):
+                    a.append(resimg.picture[x+i][y])
+                    a.append(resimg.picture[x-i][y])
+                for j in range(1,int((m.width + 1) / 2)):
+                    a.append(resimg.picture[x][y+j])
+                    a.append(resimg.picture[x][y-j])
+                a = sorted(a)
+                if (flag == 0):         # mid
+                    resimg.picture[x][y]=a[int((m.heigth*m.width)/2)]
+                if (flag == -1):      # min
+                    resimg.picture[x][y]=min(a)
+                if (flag == 1):       # max
+                    resimg.picture[x][y]=max(a)
         return resimg.picture
-
-
 
