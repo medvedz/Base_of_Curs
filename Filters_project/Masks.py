@@ -31,7 +31,6 @@ class Mask:
             for j in range(self.width):
                 self.mask[i][j]=1
 
-
     def fill_avg(self):                        # заполнить маску для взвешенного среднего
         self.fill_one()
         for i in range(1,int((self.width+1)/2)):
@@ -46,7 +45,6 @@ class Mask:
         for i in range(self.width):
             for j in range(int((self.heigth/2)+1),self.heigth):
                 self.mask[j][i] = self.mask[j - 1][i] / 2
-
 
     def add_k(self):                        # сумма коэф. маски
         #k=self.mask.sum()
