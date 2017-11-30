@@ -76,7 +76,7 @@ class Filters(object):
        return resimg
     """
 
-    def SpaceFilter_line(self, n,flag):
+    def SpaceFilter_line(self, n,flag=0):
         resimg = copy.deepcopy(self)
         m = Masks.Mask(n)
         if (flag==0):
@@ -118,7 +118,7 @@ class Filters(object):
                 resimg.picture[x][y] = R/(m.add_k())
         return resimg
 
-    def SpaceFilter_notline(self,n,flag):
+    def SpaceFilter_notline(self,n,flag=0):
         resimg=copy.deepcopy(self)
         m = Masks.Mask(n)
         a=list()

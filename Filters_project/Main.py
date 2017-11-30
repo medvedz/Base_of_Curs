@@ -7,10 +7,10 @@ import cv2 as cv
 A=Filters.Filters(cv.imread('test_img/7_black.png',cv.IMREAD_GRAYSCALE))
 B=Filters.Filters(cv.imread('test_img/1.png',cv.IMREAD_GRAYSCALE))
 
-#cv.imshow('0',A.picture)
+cv.imshow('A',A.picture)
+cv.imshow('B',B.picture)
 
 # пример работы линейных сгдаживающих фильтров
-
 """
             -- Описание для линейных сглаживающих фильтров --
 
@@ -26,17 +26,16 @@ B=Filters.Filters(cv.imread('test_img/1.png',cv.IMREAD_GRAYSCALE))
 
 """
 
+cv.imshow('A Line Filter (1)',A.SpaceFilter_line(5,0).picture)
+cv.imshow('A Line Filter (avg)',A.SpaceFilter_line(5,1).picture)
 
-#cv.imshow('A Line Filter (1)',A.SpaceFilter_line(5,0).picture)
-#cv.imshow('A Line Filter (avg)',A.SpaceFilter_line(5,1).picture)
 
+cv.imshow('B Line Filter (1)',B.SpaceFilter_line(5,0).picture)
+cv.imshow('B Line Filter (avg)',B.SpaceFilter_line(5,1).picture)
 
-#cv.imshow('B Line Filter (1)',B.SpaceFilter_line(5,0).picture)
-#cv.imshow('B Line Filter (avg)',B.SpaceFilter_line(5,1).picture)
 
 
 # пример работы нелинейных сгдаживающих фильтров
-
 """
     -------  Описание нелинейных сглаживающих фильтров  ---------
     
@@ -48,9 +47,19 @@ B=Filters.Filters(cv.imread('test_img/1.png',cv.IMREAD_GRAYSCALE))
 
 """
 
+cv.imshow('A Not Line Filter (median)',A.SpaceFilter_notline(3).picture)
+cv.imshow('B Not Line Filter (median)',B.SpaceFilter_notline(3).picture)
 
-cv.imshow('A Not Line Filter (median)',A.SpaceFilter_notline(3,0).picture)
 
-cv.imshow('B Not Line Filter (median)',B.SpaceFilter_notline(3,0).picture)
+
+# Линейный с однородной маской + Медианный
+cv.imshow('Line Filter (1)  + Not Line Filter',A.SpaceFilter_line(5,0).SpaceFilter_notline(3).picture)
+cv.imshow('Line Filter (avg)  + Not Line Filter',B.SpaceFilter_line(5,0).SpaceFilter_notline(5).picture)
+
+
+
+# Линейный с усредняющей маской + Медианный
+cv.imshow('Line Filter (avg)  + Not Line Filter',A.SpaceFilter_line(5,1).SpaceFilter_notline(3).picture)
+cv.imshow('Line Filter (avg)  + Not Line Filter',B.SpaceFilter_line(5,1).SpaceFilter_notline(5).picture)
 
 cv.waitKey(0)
