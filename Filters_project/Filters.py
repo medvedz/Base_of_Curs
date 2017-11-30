@@ -73,7 +73,7 @@ class Filters(object):
                     R -= (resimg.picture[x][y - j])
                R *= m.avg_k()
                resimg.picture[x][y]=R
-       return resimg.picture
+       return resimg
     """
 
     def SpaceFilter_line(self, n,flag):
@@ -116,7 +116,7 @@ class Filters(object):
                       R -= ((resimg.picture[x][y - j])*(m.mask[start_h][start_w-j]))
                # R *=m.avg_k()
                 resimg.picture[x][y] = R/(m.add_k())
-        return resimg.picture
+        return resimg
 
     def SpaceFilter_notline(self,n,flag):
         resimg=copy.deepcopy(self)
@@ -153,5 +153,5 @@ class Filters(object):
                     resimg.picture[x][y]=min(a)
                 if (flag == 1):       # max
                     resimg.picture[x][y]=max(a)
-        return resimg.picture
+        return resimg
 
