@@ -46,6 +46,30 @@ class Mask:
             for j in range(int((self.heigth/2)+1),self.heigth):
                 self.mask[j][i] = self.mask[j - 1][i] / 2
 
+    def fill_circle(self):                    # заполнить маску бинарным кружочком =)
+        x=int(self.heigth/2)
+        y=int(self.width/2)
+
+        self.mask[x][y]=1
+
+        for i in range(1,int((self.heigth)/2)+1):
+            self.mask[x + i][y]=1
+            self.mask[x - i][y]=1
+        for j in range(1,int((self.width ) / 2)+1):
+            self.mask[x ][y - j]=1
+            self.mask[x ][y + j]=1
+
+        for i in range(1,int(self.heigth/2)+1):
+            j=1
+            while (j<int(self.width/2)+1-i):
+                self.mask[x + i][y + j] = 1
+                self.mask[x - i][y + j] = 1
+                self.mask[x + i][y - j] = 1
+                self.mask[x - i][y - j] = 1
+                j+=1
+
+
+
     def add_k(self):                        # сумма коэф. маски
         #k=self.mask.sum()
         return self.mask.sum()
