@@ -26,12 +26,12 @@ cv.imshow('B',B.picture)
 
 """
 
-cv.imshow('A Line Filter (1)',A.SpaceFilter_line(5,0).picture)
-cv.imshow('A Line Filter (avg)',A.SpaceFilter_line(5,1).picture)
+#cv.imshow('A Line Filter (1)',A.SpaceFilter_line(5,0).picture)
+#cv.imshow('A Line Filter (avg)',A.SpaceFilter_line(5,1).picture)
 
 
-cv.imshow('B Line Filter (1)',B.SpaceFilter_line(5,0).picture)
-cv.imshow('B Line Filter (avg)',B.SpaceFilter_line(5,1).picture)
+#cv.imshow('B Line Filter (1)',B.SpaceFilter_line(5,0).picture)
+#cv.imshow('B Line Filter (avg)',B.SpaceFilter_line(5,1).picture)
 
 
 
@@ -39,27 +39,29 @@ cv.imshow('B Line Filter (avg)',B.SpaceFilter_line(5,1).picture)
 """
     -------  Описание нелинейных сглаживающих фильтров  ---------
     
+Медианный фильтр обычно используется для уменьшения шума или «сглаживания» изображения.
+    
 Медианный фильтр дает отличное подавление импульсных шумов, 
 при малой расфокусировке
 
-Фильтры макс. и мин. позволяют выделить области наибольшей и наименьшей яркости изображения
+Эрозия увеличивает темные тона , а наращивание светлые.
 
 
 """
 
-cv.imshow('A Not Line Filter (median)',A.SpaceFilter_notline(3).picture)
-cv.imshow('B Not Line Filter (median)',B.SpaceFilter_notline(3).picture)
+#cv.imshow('A Not Line Filter (median)',A.SpaceFilter_notline(3).picture)
+#cv.imshow('B Not Line Filter (median)',B.SpaceFilter_notline(3).picture)
 
 
 
 # Линейный с однородной маской + Медианный
-cv.imshow('Line Filter (1)  + Not Line Filter',A.SpaceFilter_line(5,0).SpaceFilter_notline(3).picture)
-cv.imshow('Line Filter (avg)  + Not Line Filter',B.SpaceFilter_line(5,0).SpaceFilter_notline(5).picture)
+#cv.imshow('Line Filter (1)  + Not Line Filter',A.SpaceFilter_line(5).SpaceFilter_notline(3).picture)
+#cv.imshow('Line Filter (avg)  + Not Line Filter',B.SpaceFilter_line(5).SpaceFilter_notline(5).picture)
 
 
 
 # Линейный с усредняющей маской + Медианный
-cv.imshow('Line Filter (avg)  + Not Line Filter',A.SpaceFilter_line(5,1).SpaceFilter_notline(3).picture)
-cv.imshow('Line Filter (avg)  + Not Line Filter',B.SpaceFilter_line(5,1).SpaceFilter_notline(5).picture)
+#cv.imshow('Line Filter (avg)  + Not Line Filter',A.SpaceFilter_line(5,1).SpaceFilter_notline(3).picture)
+#cv.imshow('Line Filter (avg)  + Not Line Filter',B.SpaceFilter_line(5,1).SpaceFilter_notline(5).picture)
 
 cv.waitKey(0)

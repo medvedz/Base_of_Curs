@@ -32,6 +32,14 @@ class Mask:
                 self.mask[i][j]=1
 
     def fill_avg(self):                        # заполнить маску для взвешенного среднего
+        """
+        Маска заполняется степенями двойки , так как этот вариант проще в реализации
+        при уже написанном методе заполнения маски единицами и дальнейшей работе
+        по преобразованию ее коффициентов.
+
+        Но чаще маску заполняют используя нормальное (Гауссово) распределение.
+
+        """
         self.fill_one()
         for i in range(1,int((self.width+1)/2)):
             self.mask[0][i]=self.mask[0][i-1] * 2
@@ -68,7 +76,11 @@ class Mask:
                 self.mask[x - i][y - j] = 1
                 j+=1
 
-
+        if((self.heigth>5)and(self.width>5)):
+            self.mask[self.heigth-1][int(self.width/2)] = 0
+            self.mask[0][int(self.width / 2)] = 0
+            self.mask[int(self.heigth/2)][0] = 0
+            self.mask[int(self.heigth/2)][self.width - 1] = 0
 
     def add_k(self):                        # сумма коэф. маски
         #k=self.mask.sum()

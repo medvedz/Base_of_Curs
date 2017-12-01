@@ -76,7 +76,7 @@ class Filters(object):
        return resimg
     """
 
-    def SpaceFilter_line(self, n,flag=0):
+    def SpaceFilter_line(self, n,flag=0):  #0- однородная маска,  другие значения- среднее
         resimg = copy.deepcopy(self)
         m = Masks.Mask(n)
         if (flag==0):
@@ -118,9 +118,13 @@ class Filters(object):
                 resimg.picture[x][y] = R/(m.add_k())
         return resimg
 
-    def SpaceFilter_notline(self,n,flag=0):
+    def SpaceFilter_notline(self,n,flag=0):  # 0- median  1- эрозия  2- наращивание
         resimg=copy.deepcopy(self)
         m = Masks.Mask(n)
+        if (flag==0):
+            m.fill_one()
+        else:
+            m.fill_circle()
         a=list()
 
 
@@ -135,10 +139,14 @@ class Filters(object):
                 a.clear()
                 for i in range(1,int((m.heigth+1) / 2)):
                     for j in range(1,int((m.width+1) / 2)):
-                        a.append(resimg.picture[x + i][y + j])
-                        a.append(resimg.picture[x - i][y + j])
-                        a.append(resimg.picture[x + i][y - j])
-                        a.append(resimg.picture[x - i][y - j])
+                        if (m.mask[start_h + i][start_w + j]  !=0 ):
+                            a.append(resimg.picture[x + i][y + j])
+                        if (m.mask[start_h - i][start_w + j]  != 0):
+                            a.append(resimg.picture[x - i][y + j])
+                        if (m.mask[start_h + i][start_w - j]  != 0):
+                            a.append(resimg.picture[x + i][y - j])
+                        if (m.mask[start_h - i][start_w - j]  != 0):
+                            a.append(resimg.picture[x - i][y - j])
                 a.append(resimg.picture[x][y])
                 for i in range(1,int((m.heigth + 1) / 2)):
                     a.append(resimg.picture[x+i][y])
@@ -149,9 +157,9 @@ class Filters(object):
                 a = sorted(a)
                 if (flag == 0):         # mid
                     resimg.picture[x][y]=a[int((m.heigth*m.width)/2)]
-                if (flag == -1):      # min
+                if (flag == 1):         # min  эрозия
                     resimg.picture[x][y]=min(a)
-                if (flag == 1):       # max
+                if (flag == 2):         # max  наращивание
                     resimg.picture[x][y]=max(a)
         return resimg
 
