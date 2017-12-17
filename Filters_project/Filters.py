@@ -118,7 +118,7 @@ class Filters(object):
                 resimg.picture[x][y] = R/(m.add_k())
         return resimg
 
-    def SpaceFilter_notline(self,n,flag=0):  # 0- median  1- эрозия  2- наращивание
+    def SpaceFilter_notline(self,n,flag=0):  # 0- median  1- min  2- max
         resimg=copy.deepcopy(self)
         m = Masks.Mask(n)
         if (flag==0):
@@ -157,9 +157,9 @@ class Filters(object):
                 a = sorted(a)
                 if (flag == 0):         # mid
                     resimg.picture[x][y]=a[int((m.heigth*m.width)/2)]
-                if (flag == 1):         # min  эрозия
+                if (flag == 1):         # min
                     resimg.picture[x][y]=min(a)
-                if (flag == 2):         # max  наращивание
+                if (flag == 2):         # max
                     resimg.picture[x][y]=max(a)
         return resimg
 

@@ -5,10 +5,11 @@ import Filters
 import cv2 as cv
 
 A=Filters.Filters(cv.imread('test_img/7_black.png',cv.IMREAD_GRAYSCALE))
-B=Filters.Filters(cv.imread('test_img/1.png',cv.IMREAD_GRAYSCALE))
+B=Filters.Filters(cv.imread('test_img/bigtest.png',cv.IMREAD_GRAYSCALE))
+C=Filters.Filters(cv.imread('test_img/bird.png',cv.IMREAD_GRAYSCALE))
 
 cv.imshow('A',A.picture)
-cv.imshow('B',B.picture)
+#cv.imshow('B',B.picture)
 
 # пример работы линейных сгдаживающих фильтров
 """
@@ -27,7 +28,7 @@ cv.imshow('B',B.picture)
 """
 
 #cv.imshow('A Line Filter (1)',A.SpaceFilter_line(5,0).picture)
-#cv.imshow('A Line Filter (avg)',A.SpaceFilter_line(5,1).picture)
+cv.imshow('A Line Filter (avg)',A.SpaceFilter_line(5,1).picture)
 
 
 #cv.imshow('B Line Filter (1)',B.SpaceFilter_line(5,0).picture)
@@ -49,7 +50,9 @@ cv.imshow('B',B.picture)
 
 """
 
-#cv.imshow('A Not Line Filter (median)',A.SpaceFilter_notline(3).picture)
+cv.imshow('A Not Line Filter (median)',A.SpaceFilter_notline(3).picture)
+#cv.imshow('B Not Line Filter (min)',B.SpaceFilter_notline(3,1).picture)
+#cv.imshow('B Not Line Filter (max)',B.SpaceFilter_notline(3,2).picture)
 #cv.imshow('B Not Line Filter (median)',B.SpaceFilter_notline(3).picture)
 
 
@@ -61,7 +64,7 @@ cv.imshow('B',B.picture)
 
 
 # Линейный с усредняющей маской + Медианный
-#cv.imshow('Line Filter (avg)  + Not Line Filter',A.SpaceFilter_line(5,1).SpaceFilter_notline(3).picture)
+cv.imshow('Line Filter (avg)  + Not Line Filter',A.SpaceFilter_notline(3).SpaceFilter_line(5,1).picture)
 #cv.imshow('Line Filter (avg)  + Not Line Filter',B.SpaceFilter_line(5,1).SpaceFilter_notline(5).picture)
 
 cv.waitKey(0)
