@@ -86,6 +86,19 @@ class Mask:
         #k=self.mask.sum()
         return self.mask.sum()
 
+    def fill_lap90(self):
+        self.SetMaskSize(3)
+        self.mask[1][1]=-4
+        self.mask[0][1] = 1
+        self.mask[1][0] = 1
+        self.mask[1][2] = 1
+        self.mask[2][1] = 1
+
+    def fill_lap45(self):
+        self.SetMaskSize(3)
+        self.fill_one()
+        self.mask[1][1] = -8
+
     def avg_k(self):                           # посчитать усредняющий коэф.
         return (float (1/self.add_k()))
 
