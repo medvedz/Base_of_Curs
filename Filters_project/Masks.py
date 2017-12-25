@@ -25,13 +25,22 @@ class Mask:
 
 
     def print(self): print(self.mask)          # print mask   
-        
-    def fill_one(self):                        # заполнить маску единицами
+
+    # заполнить маску единицами
+    def fill_one(self):
         for i in range(self.heigth):
             for j in range(self.width):
                 self.mask[i][j]=1
 
-    def fill_avg(self):                        # заполнить маску для взвешенного среднего
+
+    # заполнить маску -1
+    def fill_negative_one(self):
+        for i in range(self.heigth):
+            for j in range(self.width):
+                self.mask[i][j] = -1
+
+    # заполнить маску для взвешенного среднего
+    def fill_avg(self):
         """
         Маска заполняется степенями двойки , так как этот вариант проще в реализации
         при уже написанном методе заполнения маски единицами и дальнейшей работе
@@ -54,7 +63,8 @@ class Mask:
             for j in range(int((self.heigth/2)+1),self.heigth):
                 self.mask[j][i] = self.mask[j - 1][i] / 2
 
-    def fill_circle(self):                    # заполнить маску бинарным кружочком =)
+    # заполнить маску бинарным кружочком =)
+    def fill_circle(self):
         x=int(self.heigth/2)
         y=int(self.width/2)
 
@@ -82,9 +92,25 @@ class Mask:
             self.mask[int(self.heigth/2)][0] = 0
             self.mask[int(self.heigth/2)][self.width - 1] = 0
 
-    def add_k(self):                        # сумма коэф. маски
+    # сумма коэф. маски
+    def add_k(self):
         #k=self.mask.sum()
         return self.mask.sum()
+
+    # заполнить маску 3 на 3 для инвариантного лапласиана без диагональных коэф.
+    def fill_lap90(self):
+        self.SetMaskSize(3)
+        self.mask[1][1] = 4
+        self.mask[0][1] = -1
+        self.mask[1][0] = -1
+        self.mask[1][2] = -1
+        self.mask[2][1] = -1
+
+    # заполнить маску 3 на 3 для инвариантного лапласиана с диагональными коэф.
+    def fill_lap45(self):
+        self.SetMaskSize(3)
+        self.fill_negative_one()
+        self.mask[1][1] = 8
 
     def avg_k(self):                           # посчитать усредняющий коэф.
         return (float (1/self.add_k()))

@@ -2,13 +2,19 @@
  # Это все тестовый блок для проверки работоспособности алгоритмов
 
 import Filters
+import Masks
 import cv2 as cv
 
 A=Filters.Filters(cv.imread('test_img/7_black.png',cv.IMREAD_GRAYSCALE))
-B=Filters.Filters(cv.imread('test_img/1.png',cv.IMREAD_GRAYSCALE))
+B=Filters.Filters(cv.imread('test_img/bigtest.png',cv.IMREAD_GRAYSCALE))
+C=Filters.Filters(cv.imread('test_img/bird.png',cv.IMREAD_GRAYSCALE))
+D=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
+E=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
 
-cv.imshow('A',A.picture)
-cv.imshow('B',B.picture)
+#cv.imshow('D',D.picture)
+#cv.imshow('A',A.picture)
+#cv.imshow('B',B.picture)
+cv.imshow('E',E.picture)
 
 # пример работы линейных сгдаживающих фильтров
 """
@@ -50,6 +56,8 @@ cv.imshow('B',B.picture)
 """
 
 #cv.imshow('A Not Line Filter (median)',A.SpaceFilter_notline(3).picture)
+#cv.imshow('B Not Line Filter (min)',B.SpaceFilter_notline(3,1).picture)
+#cv.imshow('B Not Line Filter (max)',B.SpaceFilter_notline(3,2).picture)
 #cv.imshow('B Not Line Filter (median)',B.SpaceFilter_notline(3).picture)
 
 
@@ -61,7 +69,37 @@ cv.imshow('B',B.picture)
 
 
 # Линейный с усредняющей маской + Медианный
-#cv.imshow('Line Filter (avg)  + Not Line Filter',A.SpaceFilter_line(5,1).SpaceFilter_notline(3).picture)
+#cv.imshow('Line Filter (avg)  + Not Line Filter',A.SpaceFilter_notline(3).SpaceFilter_line(5,1).picture)
 #cv.imshow('Line Filter (avg)  + Not Line Filter',B.SpaceFilter_line(5,1).SpaceFilter_notline(5).picture)
 
+
+#cv.imshow('D line',D.SpaceFilter_line(3).picture)
+#cv.imshow('D 90',D.SpaceFilter_laplacian().picture)
+#cv.imshow('D 45',D.SpaceFilter_laplacian(1).picture)
+#cv.imshow('D median',D.SpaceFilter_notline(3).picture)
+
+
+
+#cv.imshow('D median + 45',D.SpaceFilter_notline(3).SpaceFilter_laplacian(1).picture)
+#cv.imshow('D 45 + median',D.SpaceFilter_laplacian(1).SpaceFilter_notline(3).picture)
+
+#cv.imshow('D line + 90',D.SpaceFilter_line(3).SpaceFilter_laplacian().picture)
+
+#cv.imshow('D line + 90 ',D.SpaceFilter_line(3,1).SpaceFilter_laplacian().picture)
+#cv.imshow('A line + 45',A.SpaceFilter_line(3,1).SpaceFilter_laplacian(1).picture)
+
+#cv.imshow('E sobel',E.SpaceFilter_sobel().picture)
+
+
+
+#cv.imshow('E median + sobel',E.SpaceFilter_notline(5).SpaceFilter_sobel().picture)
+
+#cv.imshow('E lap 45',E.SpaceFilter_laplacian(1).picture)
+
+
+cv.imshow('E median + lap 45',E.SpaceFilter_notline(3).SpaceFilter_laplacian(1).picture)
+
+
+
 cv.waitKey(0)
+
