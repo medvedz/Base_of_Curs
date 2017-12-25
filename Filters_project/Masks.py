@@ -32,6 +32,13 @@ class Mask:
             for j in range(self.width):
                 self.mask[i][j]=1
 
+
+    # заполнить маску -1
+    def fill_negative_one(self):
+        for i in range(self.heigth):
+            for j in range(self.width):
+                self.mask[i][j] = -1
+
     # заполнить маску для взвешенного среднего
     def fill_avg(self):
         """
@@ -93,18 +100,18 @@ class Mask:
     # заполнить маску 3 на 3 для инвариантного лапласиана без диагональных коэф.
     def fill_lap90(self):
         self.SetMaskSize(3)
-        self.mask[1][1]=-4
-        self.mask[0][1] = 1
-        self.mask[1][0] = 1
-        self.mask[1][2] = 1
-        self.mask[2][1] = 1
+        self.mask[1][1] = 4
+        self.mask[0][1] = -1
+        self.mask[1][0] = -1
+        self.mask[1][2] = -1
+        self.mask[2][1] = -1
 
     # заполнить маску 3 на 3 для инвариантного лапласиана с диагональными коэф.
     def fill_lap45(self):
         self.SetMaskSize(3)
-        self.fill_one()
-        self.mask[1][1] = -8
-    
+        self.fill_negative_one()
+        self.mask[1][1] = 8
+
     def avg_k(self):                           # посчитать усредняющий коэф.
         return (float (1/self.add_k()))
 

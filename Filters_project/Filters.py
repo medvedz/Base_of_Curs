@@ -163,3 +163,29 @@ class Filters(object):
                     resimg.picture[x][y]=max(a)
         return resimg
 
+    def SpaceFilter_laplacian(self,flag=0):     # 0 - без диагональных элементов   1 - с диагональными элементами
+        resimg = copy.deepcopy(self)
+        a = copy.deepcopy(self)
+
+        m=Masks.Mask(3)
+
+        if (flag ==0):
+            m.fill_lap90()
+        else:
+            m.fill_lap45()
+
+        # элементы проверки
+        #m.print()
+        #print(resimg.heigth,"x",resimg.width)
+
+        laplacian = 0
+
+        for i in range(1,resimg.heigth-1):
+            for j in range(1,resimg.width-1):
+                laplacian=0
+                for n in range(3):
+                    for m1 in range(3):
+                        laplacian+=(m.mask[n][m1])*(a.picture[i-1+n][j-1+m1])
+                resimg.picture[i][j] +=  laplacian
+
+        return resimg
