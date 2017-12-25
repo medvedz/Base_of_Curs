@@ -14,7 +14,7 @@ E=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
 #cv.imshow('D',D.picture)
 #cv.imshow('A',A.picture)
 #cv.imshow('B',B.picture)
-#cv.imshow('E',E.picture)
+cv.imshow('E',E.picture)
 
 # пример работы линейных сгдаживающих фильтров
 """
@@ -89,6 +89,15 @@ E=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
 #cv.imshow('A line + 45',A.SpaceFilter_line(3,1).SpaceFilter_laplacian(1).picture)
 
 #cv.imshow('E sobel',E.SpaceFilter_sobel().picture)
+
+
+
+#cv.imshow('E median + sobel',E.SpaceFilter_notline(5).SpaceFilter_sobel().picture)
+
+#cv.imshow('E lap 45',E.SpaceFilter_laplacian(1).picture)
+
+
+cv.imshow('E median + lap 45',E.SpaceFilter_notline(3).SpaceFilter_laplacian(1).picture)
 
 
 

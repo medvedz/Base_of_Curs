@@ -30,7 +30,7 @@ class Main(QWidget):   # класс Main наследуется от класс�
 
         # габариты окна
         w_w=850
-        w_h=600
+        w_h=780
 
         # все три метода унаследованы от QWidget
         self.setGeometry(0,0,w_w , w_h)      # 1 и 2 параметры - позиция окна
@@ -104,13 +104,38 @@ class Main(QWidget):   # класс Main наследуется от класс�
         btn_mid_avg_3.resize(350, 50)  # размеры кнопки
         btn_mid_avg_3.move(450, 410)
 
+        btn_lap_90 = QPushButton('Повышение резкости (лапласиан 90)', self)
+        btn_lap_90.setToolTip('Повышение рекости с помощью <b>лапласиана без диагональных элементов</b>')
+        btn_lap_90.resize(350, 50)  # размеры кнопки
+        btn_lap_90.move(50, 480)
+
+        btn_lap_45 = QPushButton('Повышение резкости (лапласиан 45)', self)
+        btn_lap_45.setToolTip('Повышение рекости с помощью <b>лапласиана c диагональными элементами</b>')
+        btn_lap_45.resize(350, 50)  # размеры кнопки
+        btn_lap_45.move(450, 480)
+
+        btn_sobel = QPushButton('Фильтр Собеля', self)
+        btn_sobel.setToolTip('Выделение <b>контуров</b> на изображении с помощью <b>градиентов</b>')
+        btn_sobel.resize(350, 50)  # размеры кнопки
+        btn_sobel.move(50, 550)
+
+        btn_mid_sobel = QPushButton('Медианный + Фильтр Собеля', self)
+        btn_mid_sobel.setToolTip('<b>Медианный 5x5</b> + выделение контуров <b>фильтром Собеля</b>')
+        btn_mid_sobel.resize(350, 50)  # размеры кнопки
+        btn_mid_sobel.move(450, 550)
+
+        btn_mid_lap = QPushButton('Медианный + Повышение резкости', self)
+        btn_mid_lap.setToolTip('<b>Медианный 3 на 3</b> + <b>Лапласиан</b> с диагональными элементами')
+        btn_mid_lap.resize(350, 50)  # размеры кнопки
+        btn_mid_lap.move(int(w_w/2)-175, 620)
+
 
         # добавим кнопку выхода
         ext=QPushButton('Выход',self)
         ext.setToolTip('Выход из приложения')
         ext.clicked.connect(QCoreApplication.instance().quit)
         ext.resize(100,50)
-        ext.move(w_w-130,w_h-80)
+        ext.move(w_w-120,w_h-80)
 
 
         # сигналы нажатий на кнопки
@@ -134,6 +159,12 @@ class Main(QWidget):   # класс Main наследуется от класс�
         btn_avg_mid_3.clicked.connect(self.button_avg_mid_3_Clicked)
         btn_mid_avg_3.clicked.connect(self.button_mid_avg_3_Clicked)
 
+        btn_lap_90.clicked.connect(self.button_lap_90_Clicked)
+        btn_lap_45.clicked.connect(self.button_lap_45_Clicked)
+        btn_sobel.clicked.connect(self.button_sobel_Clicked)
+        btn_mid_sobel.clicked.connect(self.button_mid_sobel_Clicked)
+        btn_mid_lap.clicked.connect(self.button_mid_lap_Clicked)
+
         self.show()
 
     """
@@ -149,6 +180,22 @@ class Main(QWidget):   # класс Main наследуется от класс�
         cv.imshow('C', C.picture)
         k=3
     """
+
+    def button_mid_lap_Clicked(self):
+        cv.imshow('D median 3x3 + lap 45', D.SpaceFilter_notline(3).SpaceFilter_laplacian(1).picture)
+
+    def button_lap_90_Clicked(self):
+        cv.imshow('D laplacian 90', D.SpaceFilter_laplacian().picture)
+
+    def button_lap_45_Clicked(self):
+        cv.imshow('D laplacian 45', D.SpaceFilter_laplacian(1).picture)
+
+    def button_sobel_Clicked(self):
+        cv.imshow('D sobel', D.SpaceFilter_sobel().picture)
+
+    def button_mid_sobel_Clicked(self):
+        cv.imshow('D median (5x5) + sobel', D.SpaceFilter_notline(5).SpaceFilter_sobel().picture)
+
     def button_line_1_5_Clicked(self):
         cv.imshow('A Line Filter (1) 5x5', A.SpaceFilter_line(5).picture)
         cv.imshow('B Line Filter (1) 5x5', B.SpaceFilter_line(5).picture)
@@ -195,6 +242,8 @@ class Main(QWidget):   # класс Main наследуется от класс�
         cv.imshow('A', A.picture)
         cv.imshow('B', B.picture)
         cv.imshow('C', C.picture)
+        cv.imshow('D', D.picture)
+
 
     def closeEvent(self, event):
 
@@ -218,7 +267,7 @@ if __name__ == '__main__':
     B = Filters.Filters(cv.imread('test_img/7_black.png', cv.IMREAD_GRAYSCALE))
     A = Filters.Filters(cv.imread('test_img/test.png', cv.IMREAD_GRAYSCALE))
     C = Filters.Filters(cv.imread('test_img/1.png', cv.IMREAD_GRAYSCALE))
-
+    D = Filters.Filters(cv.imread('test_img/lap.png', cv.IMREAD_GRAYSCALE))
 
     app = QApplication(sys.argv)   # создали приложение
     ex = Main()                 # создали окно
