@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib as mp
 import Masks
 import copy
+import math as mt
 
 BYTE = 256
 
@@ -187,5 +188,21 @@ class Filters(object):
                     for m1 in range(3):
                         laplacian+=(m.mask[n][m1])*(a.picture[i-1+n][j-1+m1])
                 resimg.picture[i][j] +=  laplacian
+
+        return resimg
+
+    def SpaceFilter_sobel(self):
+        resimg = copy.deepcopy(self)
+        a = copy.deepcopy(self)
+
+        dx=0
+        dy=0
+        for i in range(1,resimg.heigth-1):
+            for j in range(1,resimg.width-1):
+                dx = 0
+                dy = 0
+                dx = mt.fabs((a.picture[i+1][j-1]+2*a.picture[i+1][j]+a.picture[i+1][j+1])-(a.picture[i-1][j-1]+2*a.picture[i-1][j]+a.picture[i-1][j+1]))
+                dy = mt.fabs((a.picture[i - 1][j + 1] + 2 * a.picture[i ][j+1] + a.picture[i + 1][j + 1]) - (a.picture[i - 1][j - 1] + 2 * a.picture[i ][j-1] + a.picture[i + 1][j - 1]))
+                resimg.picture[i][j]=dx+dy
 
         return resimg

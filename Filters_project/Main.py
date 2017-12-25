@@ -9,10 +9,12 @@ A=Filters.Filters(cv.imread('test_img/7_black.png',cv.IMREAD_GRAYSCALE))
 B=Filters.Filters(cv.imread('test_img/bigtest.png',cv.IMREAD_GRAYSCALE))
 C=Filters.Filters(cv.imread('test_img/bird.png',cv.IMREAD_GRAYSCALE))
 D=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
+E=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
 
 #cv.imshow('D',D.picture)
 #cv.imshow('A',A.picture)
 #cv.imshow('B',B.picture)
+#cv.imshow('E',E.picture)
 
 # пример работы линейных сгдаживающих фильтров
 """
@@ -72,7 +74,7 @@ D=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
 
 
 #cv.imshow('D line',D.SpaceFilter_line(3).picture)
-cv.imshow('D 90',D.SpaceFilter_laplacian().picture)
+#cv.imshow('D 90',D.SpaceFilter_laplacian().picture)
 #cv.imshow('D 45',D.SpaceFilter_laplacian(1).picture)
 #cv.imshow('D median',D.SpaceFilter_notline(3).picture)
 
@@ -86,6 +88,7 @@ cv.imshow('D 90',D.SpaceFilter_laplacian().picture)
 #cv.imshow('D line + 90 ',D.SpaceFilter_line(3,1).SpaceFilter_laplacian().picture)
 #cv.imshow('A line + 45',A.SpaceFilter_line(3,1).SpaceFilter_laplacian(1).picture)
 
+#cv.imshow('E sobel',E.SpaceFilter_sobel().picture)
 
 
 
