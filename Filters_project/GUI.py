@@ -222,6 +222,7 @@ class Main(QWidget):   # класс Main наследуется от класс�
         cv.imshow('C median 3x3', C.SpaceFilter_notline(3).picture)
         cv.imshow('D median 3x3', D.SpaceFilter_notline(3).picture)
 
+
     def button_mid_5_Clicked(self):
         cv.imshow('A median 5x5', A.SpaceFilter_notline(5).picture)
         cv.imshow('B median 5x5', B.SpaceFilter_notline(5).picture)

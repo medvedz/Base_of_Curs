@@ -8,13 +8,18 @@ import cv2 as cv
 A=Filters.Filters(cv.imread('test_img/7_black.png',cv.IMREAD_GRAYSCALE))
 B=Filters.Filters(cv.imread('test_img/bigtest.png',cv.IMREAD_GRAYSCALE))
 C=Filters.Filters(cv.imread('test_img/bird.png',cv.IMREAD_GRAYSCALE))
+<<<<<<< HEAD
+D=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
+E=Filters.Filters(cv.imread('test_img/test.png',cv.IMREAD_GRAYSCALE))
+=======
 D=Filters.Filters(cv.imread('test_img/test.png',cv.IMREAD_GRAYSCALE))
 E=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
+>>>>>>> aff131a602485ea31b104e77eab1cee3a9985ea2
 
 #cv.imshow('D',D.picture)
-#cv.imshow('A',A.picture)
+cv.imshow('A',A.picture)
 #cv.imshow('B',B.picture)
-cv.imshow('E',E.picture)
+#cv.imshow('E',E.picture)
 
 # пример работы линейных сгдаживающих фильтров
 """
@@ -59,6 +64,10 @@ cv.imshow('E',E.picture)
 #cv.imshow('B Not Line Filter (min)',B.SpaceFilter_notline(3,1).picture)
 #cv.imshow('B Not Line Filter (max)',B.SpaceFilter_notline(3,2).picture)
 #cv.imshow('B Not Line Filter (median)',B.SpaceFilter_notline(3).picture)
+cv.imshow('A median',A.SpaceFilter_notline(3,0).picture)
+cv.imshow('A erosion',A.SpaceFilter_notline(3,1).picture)
+cv.imshow('A building up',A.SpaceFilter_notline(3,2).picture)
+
 
 
 
@@ -98,6 +107,11 @@ cv.imshow('E',E.picture)
 
 
 #cv.imshow('E median + lap 45',E.SpaceFilter_notline(3).SpaceFilter_laplacian(1).picture)
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> aff131a602485ea31b104e77eab1cee3a9985ea2
 
 #cv.imshow('D median 3',D.SpaceFilter_notline(3).picture)
 #cv.imshow('D median 7',D.SpaceFilter_notline(7).picture)
