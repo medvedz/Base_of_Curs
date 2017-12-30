@@ -220,12 +220,13 @@ class Main(QWidget):   # класс Main наследуется от класс�
         cv.imshow('A median 3x3', A.SpaceFilter_notline(3).picture)
         cv.imshow('B median 3x3', B.SpaceFilter_notline(3).picture)
         cv.imshow('C median 3x3', C.SpaceFilter_notline(3).picture)
+        cv.imshow('D median 3x3', D.SpaceFilter_notline(3).picture)
 
     def button_mid_5_Clicked(self):
         cv.imshow('A median 5x5', A.SpaceFilter_notline(5).picture)
         cv.imshow('B median 5x5', B.SpaceFilter_notline(5).picture)
         cv.imshow('C median 5x5', C.SpaceFilter_notline(5).picture)
-        cv.imshow('C median 7x7', C.SpaceFilter_notline(7).picture)
+     #   cv.imshow('C median 7x7', C.SpaceFilter_notline(7).picture)
 
 
     def button_avg_mid_3_Clicked(self):
@@ -247,8 +248,7 @@ class Main(QWidget):   # класс Main наследуется от класс�
 
     def closeEvent(self, event):
 
-        reply = QMessageBox.question(self, 'Выход',
-                                     "Вы уверены, что хотите выйти?", QMessageBox.Yes |
+        reply = QMessageBox.question(self, 'Выход',"Вы уверены, что хотите выйти?", QMessageBox.Yes |
                                      QMessageBox.No, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
