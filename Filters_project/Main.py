@@ -8,7 +8,7 @@ import cv2 as cv
 A=Filters.Filters(cv.imread('test_img/7_black.png',cv.IMREAD_GRAYSCALE))
 B=Filters.Filters(cv.imread('test_img/bigtest.png',cv.IMREAD_GRAYSCALE))
 C=Filters.Filters(cv.imread('test_img/bird.png',cv.IMREAD_GRAYSCALE))
-D=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
+D=Filters.Filters(cv.imread('test_img/test.png',cv.IMREAD_GRAYSCALE))
 E=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
 
 #cv.imshow('D',D.picture)
@@ -97,9 +97,11 @@ cv.imshow('E',E.picture)
 #cv.imshow('E lap 45',E.SpaceFilter_laplacian(1).picture)
 
 
-cv.imshow('E median + lap 45',E.SpaceFilter_notline(3).SpaceFilter_laplacian(1).picture)
+#cv.imshow('E median + lap 45',E.SpaceFilter_notline(3).SpaceFilter_laplacian(1).picture)
 
+#cv.imshow('D median 3',D.SpaceFilter_notline(3).picture)
+#cv.imshow('D median 7',D.SpaceFilter_notline(7).picture)
 
-
+#cv.imshow("    1",E.SpaceFilter_laplacian().SpaceFilter_sobel().picture)
 cv.waitKey(0)
 

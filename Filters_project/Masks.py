@@ -2,7 +2,7 @@ import numpy as np
 
 class Mask:
 
-    def __init__(self,n):
+    def __init__(self,n=3):
         n1=n
         if (n<3):  n1 = 3                      # min size 3x3
         else:
