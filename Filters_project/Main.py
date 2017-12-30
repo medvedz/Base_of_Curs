@@ -16,8 +16,8 @@ D=Filters.Filters(cv.imread('test_img/test.png',cv.IMREAD_GRAYSCALE))
 E=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
 
 #cv.imshow('D',D.picture)
-cv.imshow('A',A.picture)
-#cv.imshow('B',B.picture)
+#cv.imshow('A',A.picture)
+cv.imshow('B',B.picture)
 #cv.imshow('E',E.picture)
 
 # пример работы линейных сгдаживающих фильтров
@@ -63,9 +63,9 @@ cv.imshow('A',A.picture)
 #cv.imshow('B Not Line Filter (min)',B.SpaceFilter_notline(3,1).picture)
 #cv.imshow('B Not Line Filter (max)',B.SpaceFilter_notline(3,2).picture)
 #cv.imshow('B Not Line Filter (median)',B.SpaceFilter_notline(3).picture)
-cv.imshow('A median',A.SpaceFilter_notline(3,0).picture)
-cv.imshow('A erosion',A.SpaceFilter_notline(3,1).picture)
-cv.imshow('A building up',A.SpaceFilter_notline(3,2).picture)
+cv.imshow('B median',B.SpaceFilter_notline(3,0).picture)
+cv.imshow('B erosion',B.SpaceFilter_notline(3,1).picture)
+cv.imshow('B building up',B.SpaceFilter_notline(3,2).picture)
 
 
 

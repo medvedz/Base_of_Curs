@@ -205,12 +205,12 @@ class Filters(object):
 
         return resimg
 
-    def Filters_morf(self,n=3,flag=0):      # falg == 0 - erosion (max), flag == 1 - наращивание (min)
+    def Filters_morf(self,n=3,flag=0):      # falg == 0 - erosion (min), flag == 1 - наращивание (max)
         resimg=copy.deepcopy(self)
         A=copy.deepcopy(self)
 
         m=Masks.Mask(n)
-        m.fill_one()
+        m.fill_circle()
 
         start_h = int((m.heigth - 1) / 2)
         start_w = int((m.width - 1) / 2)
@@ -244,12 +244,12 @@ class Filters(object):
 
                 for i in range(m.heigth):
                     for j in range(m.width):
-                        if (flag==0):  # erosion
+                        if (flag==1):  # наращивание
                             if (A.picture[x-int((m.heigth - 1) / 2)+i][y-int((m.width - 1) / 2)+j]==max(a)):
                                 for i1 in range(m.heigth):
                                     for j1 in range(m.width):
                                         resimg.picture[x - int((m.heigth - 1) / 2) + i1][y - int((m.width - 1) / 2) + j1] = max(a)
-                        if (flag==1):  # наращивание
+                        if (flag==0):  # erosion
                             if (A.picture[x-int((m.heigth - 1) / 2)+i][y-int((m.width - 1) / 2)+j]==min(a)):
                                 for i1 in range(m.heigth):
                                     for j1 in range(m.width):
