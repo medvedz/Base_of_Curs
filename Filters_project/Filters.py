@@ -79,6 +79,7 @@ class Filters(object):
 
     def SpaceFilter_line(self, n,flag=0):  #0- однородная маска,  другие значения- среднее
         resimg = copy.deepcopy(self)
+        a=copy.deepcopy(self)
         m = Masks.Mask(n)
         if (flag==0):
             m.fill_one()
@@ -104,23 +105,24 @@ class Filters(object):
                 R=0
                 for i in range(int((m.heigth+1) / 2)):
                     for j in range(int((m.width+1) / 2)):
-                        R += ((resimg.picture[x + i][y + j])*(m.mask[start_h+i][start_w+j]))
-                        R += ((resimg.picture[x - i][y + j])*(m.mask[start_h-i][start_w+j]))
-                        R += ((resimg.picture[x + i][y - j])*(m.mask[start_h+i][start_w-j]))
-                        R += ((resimg.picture[x - i][y - j])*(m.mask[start_h-i][start_w-j]))
-                R -= (3 * (resimg.picture[x][y])*(m.mask[start_h][start_w]))
+                        R += ((a.picture[x + i][y + j])*(m.mask[start_h+i][start_w+j]))
+                        R += ((a.picture[x - i][y + j])*(m.mask[start_h-i][start_w+j]))
+                        R += ((a.picture[x + i][y - j])*(m.mask[start_h+i][start_w-j]))
+                        R += ((a.picture[x - i][y - j])*(m.mask[start_h-i][start_w-j]))
+                R -= (3 * (a.picture[x][y])*(m.mask[start_h][start_w]))
                 for i in range(1,int((m.heigth + 1) / 2)):
-                      R -= ((resimg.picture[x + i][y])*(m.mask[start_h+i][start_w]))
-                      R -= ((resimg.picture[x - i][y])*(m.mask[start_h-i][start_w]))
+                      R -= ((a.picture[x + i][y])*(m.mask[start_h+i][start_w]))
+                      R -= ((a.picture[x - i][y])*(m.mask[start_h-i][start_w]))
                 for j in range(1,int((m.width + 1) / 2)):
-                      R -= ((resimg.picture[x][y + j])*(m.mask[start_h][start_w+j]))
-                      R -= ((resimg.picture[x][y - j])*(m.mask[start_h][start_w-j]))
+                      R -= ((a.picture[x][y + j])*(m.mask[start_h][start_w+j]))
+                      R -= ((a.picture[x][y - j])*(m.mask[start_h][start_w-j]))
                # R *=m.avg_k()
                 resimg.picture[x][y] = R/(m.add_k())
         return resimg
 
     def SpaceFilter_notline(self,n,flag=0):  # 0- median  1- erosion   2- building up
         resimg=copy.deepcopy(self)
+        t=copy.deepcopy(self)
 
         if (flag == 0):
             m = Masks.Mask(n)
@@ -140,20 +142,20 @@ class Filters(object):
                     for i in range(1,int((m.heigth+1) / 2)):
                         for j in range(1,int((m.width+1) / 2)):
                             if (m.mask[start_h + i][start_w + j]  !=0 ):
-                                a.append(resimg.picture[x + i][y + j])
+                                a.append(t.picture[x + i][y + j])
                             if (m.mask[start_h - i][start_w + j]  != 0):
-                                a.append(resimg.picture[x - i][y + j])
+                                a.append(t.picture[x - i][y + j])
                             if (m.mask[start_h + i][start_w - j]  != 0):
-                                a.append(resimg.picture[x + i][y - j])
+                                a.append(t.picture[x + i][y - j])
                             if (m.mask[start_h - i][start_w - j]  != 0):
-                                a.append(resimg.picture[x - i][y - j])
-                    a.append(resimg.picture[x][y])
+                                a.append(t.picture[x - i][y - j])
+                    a.append(t.picture[x][y])
                     for i in range(1,int((m.heigth + 1) / 2)):
-                        a.append(resimg.picture[x+i][y])
-                        a.append(resimg.picture[x-i][y])
+                        a.append(t.picture[x+i][y])
+                        a.append(t.picture[x-i][y])
                     for j in range(1,int((m.width + 1) / 2)):
-                        a.append(resimg.picture[x][y+j])
-                        a.append(resimg.picture[x][y-j])
+                        a.append(t.picture[x][y+j])
+                        a.append(t.picture[x][y-j])
                     a = sorted(a)
                     resimg.picture[x][y]=a[int((m.heigth*m.width)/2)]
         if (flag == 1):   # эрозия
@@ -245,15 +247,17 @@ class Filters(object):
                 for i in range(m.heigth):
                     for j in range(m.width):
                         if (flag==1):  # наращивание
-                            if (A.picture[x-int((m.heigth - 1) / 2)+i][y-int((m.width - 1) / 2)+j]==max(a)):
+                            if ((A.picture[x-int((m.heigth - 1) / 2)+i][y-int((m.width - 1) / 2)+j]==max(a))and(m.mask[i][j]!=0)):
                                 for i1 in range(m.heigth):
                                     for j1 in range(m.width):
-                                        resimg.picture[x - int((m.heigth - 1) / 2) + i1][y - int((m.width - 1) / 2) + j1] = max(a)
+                                        if (m.mask[i1][j1]!=0):
+                                            resimg.picture[x - int((m.heigth - 1) / 2) + i1][y - int((m.width - 1) / 2) + j1] = max(a)
                         if (flag==0):  # erosion
-                            if (A.picture[x-int((m.heigth - 1) / 2)+i][y-int((m.width - 1) / 2)+j]==min(a)):
+                            if ((A.picture[x-int((m.heigth - 1) / 2)+i][y-int((m.width - 1) / 2)+j]==min(a))and(m.mask[i][j]!=0)):
                                 for i1 in range(m.heigth):
                                     for j1 in range(m.width):
-                                        resimg.picture[x - int((m.heigth - 1) / 2) + i1][y - int((m.width - 1) / 2) + j1] = min(a)
+                                        if (m.mask[i1][j1] != 0):
+                                            resimg.picture[x - int((m.heigth - 1) / 2) + i1][y - int((m.width - 1) / 2) + j1] = min(a)
 
 
         return resimg

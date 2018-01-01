@@ -16,8 +16,8 @@ D=Filters.Filters(cv.imread('test_img/test.png',cv.IMREAD_GRAYSCALE))
 E=Filters.Filters(cv.imread('test_img/lap.png',cv.IMREAD_GRAYSCALE))
 
 #cv.imshow('D',D.picture)
-#cv.imshow('A',A.picture)
-cv.imshow('B',B.picture)
+cv.imshow('A',A.picture)
+#cv.imshow('B',B.picture)
 #cv.imshow('E',E.picture)
 
 # пример работы линейных сгдаживающих фильтров
@@ -36,8 +36,8 @@ cv.imshow('B',B.picture)
 
 """
 
-#cv.imshow('A Line Filter (1)',A.SpaceFilter_line(5,0).picture)
-#cv.imshow('A Line Filter (avg)',A.SpaceFilter_line(5,1).picture)
+cv.imshow('A Line Filter (1)',A.SpaceFilter_line(5,0).picture)
+cv.imshow('A Line Filter (avg)',A.SpaceFilter_line(5,1).picture)
 
 
 #cv.imshow('B Line Filter (1)',B.SpaceFilter_line(5,0).picture)
@@ -63,12 +63,14 @@ cv.imshow('B',B.picture)
 #cv.imshow('B Not Line Filter (min)',B.SpaceFilter_notline(3,1).picture)
 #cv.imshow('B Not Line Filter (max)',B.SpaceFilter_notline(3,2).picture)
 #cv.imshow('B Not Line Filter (median)',B.SpaceFilter_notline(3).picture)
-cv.imshow('B median',B.SpaceFilter_notline(3,0).picture)
-cv.imshow('B erosion',B.SpaceFilter_notline(3,1).picture)
-cv.imshow('B building up',B.SpaceFilter_notline(3,2).picture)
+#cv.imshow('B median',B.SpaceFilter_notline(3,0).picture)
+#cv.imshow('B erosion',B.SpaceFilter_notline(3,1).picture)
+#cv.imshow('B building up',B.SpaceFilter_notline(3,2).picture)
 
-
-
+#cv.imshow('A median 3',A.SpaceFilter_notline(3).picture)
+#cv.imshow('A median 5',A.SpaceFilter_notline(5).picture)
+#cv.imshow('A median 7',A.SpaceFilter_notline(7).picture)
+#cv.imshow('A median 11',A.SpaceFilter_notline(11).picture)
 
 # Линейный с однородной маской + Медианный
 #cv.imshow('Line Filter (1)  + Not Line Filter',A.SpaceFilter_line(5).SpaceFilter_notline(3).picture)
